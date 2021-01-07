@@ -12,7 +12,7 @@ namespace ElibraryManagement
 {
     public partial class usersignup : System.Web.UI.Page
     {   
-        //create a connection string
+        //create a connection string - test
         string strcon = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
