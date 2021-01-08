@@ -12,7 +12,7 @@ namespace ElibraryManagement
 {
     public partial class usersignup : System.Web.UI.Page
     {   
-        //create a connection string - test
+        //create a connection string
         string strcon = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,12 +22,12 @@ namespace ElibraryManagement
         protected void Button1_Click(object sender, EventArgs e)
         {
             if (checkMemberExists()) {
+                //Response.End();
                 Response.Write("<script>alert('Member Already Exist with this member id');</script>");
 
             }
             else
-            {
-                Response.Write("<script>alert('checkMemberExists');</script>");
+            { 
                 SignupNewMember();
             }
             
@@ -46,11 +46,12 @@ namespace ElibraryManagement
                 {
                     con.Open();
                 }
-                string username = TextBox8.Text.Trim();
-                SqlCommand cmd = new SqlCommand("SELECT * member_master_tbl where member_id='" + username + "';", con);
+                //string username = TextBox8.Text.Trim();
+                SqlCommand cmd = new SqlCommand("SELECT * from member_master_tbl where member_id='" + TextBox8.Text.Trim() + "';", con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
+               //Response.Write("<script>alert('" + dt.Rows.Count + "');</script>");
                 if (dt.Rows.Count >= 1)
                 {
                     return true;
@@ -68,8 +69,7 @@ namespace ElibraryManagement
                 return false;
 
             }
-
-            
+    
         }
 
 
@@ -103,7 +103,9 @@ namespace ElibraryManagement
 
                 cmd.ExecuteNonQuery();
                 con.Close();
-                Response.Write("<script>alert('Signup Successful!!');</script>");
+                //Response.Write("<script>alert('Signup Successful!!');</script>");
+                Response.Redirect("userlogin.aspx");
+
 
             }
             catch (Exception ex)
